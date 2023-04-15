@@ -28,7 +28,7 @@ parts:
     meson-parameters:
       - --prefix=/snap/tagger/current/usr
       - -Dbuildtype=release
-    build-environement:
+    build-environment:
       - CFLAGS: "$CFLAGS -l/$CRAFT_PRIME/usr/include"
     override-pull: |
       craftctl default
