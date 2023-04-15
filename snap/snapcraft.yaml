@@ -1,0 +1,40 @@
+name: tagger # you probably want to 'snapcraft register <name>'
+base: core22 # the base snap is the execution environment for this snap
+version: '2022.11.2' # just for humans, typically '1.2+git' or '1.3.2'
+icon: org.nickvision.tagger.svg
+adopt-info: tagger
+grade: stable # must be 'stable' to release into candidate/stable channels
+confinement: strict # use 'strict' once you have the right plugs and slots
+
+parts:
+  taglib:
+    plugin: cmake
+    source: https://github.com/taglib/taglib.git
+    source-tag: v1.12
+  tagger:
+    after: [taglib]
+    # See 'snapcraft plugins'
+    plugin: meson
+    source: https://github.com/NickvisionApps/Tagger.git
+    source-tag: $SNAPCRAFT_PROJECT_VERSION
+    stage-packages:
+      - libjsoncpp25
+      - libcurlpp0
+    meson-parameters:
+      - --prefix=/snap/tagger/current/usr
+      - -Dbuildtype=release
+    override-pull: |
+      craftctl default
+      sed -e 's|Icon=org.nickvision.tagger|Icon=$SNAP/usr/share/icons/hicolor/scalable/apps/org.nickvision.tagger.svg|' -i org.nickvision.tagger.desktop
+    organize:
+      snap/tagger/current/usr: usr
+    parse-info: [usr/share/metainfo/org.nickvision.tagger.metainfo.xml]
+
+apps:
+  tagger:
+    command: usr/bin/org.nickvision.tagger
+    desktop: usr/share/applications/org.nickvision.tagger.desktop
+    common-id: org.nickvision.tagger
+    extensions: [gnome]
+    plugs:
+      - mount-observe
