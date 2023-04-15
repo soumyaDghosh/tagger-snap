@@ -37,6 +37,11 @@ parts:
       snap/tagger/current/usr: usr
     parse-info: [usr/share/metainfo/org.nickvision.tagger.metainfo.xml]
 
+slots:
+  tagger:
+    interface: dbus
+    bus: session
+    name: org.nickvision.tagger
 apps:
   tagger:
     command: usr/bin/org.nickvision.tagger
