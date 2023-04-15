@@ -11,6 +11,8 @@ parts:
     plugin: cmake
     source: https://github.com/taglib/taglib.git
     source-tag: v1.12
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr
   tagger:
     after: [taglib]
     # See 'snapcraft plugins'
@@ -26,6 +28,8 @@ parts:
     meson-parameters:
       - --prefix=/snap/tagger/current/usr
       - -Dbuildtype=release
+    build-environement:
+      - CFLAGS: "$CFLAGS -l/$CRAFT_PRIME/usr/include"
     override-pull: |
       craftctl default
       sed -e 's|Icon=org.nickvision.tagger|Icon=$SNAP/usr/share/icons/hicolor/scalable/apps/org.nickvision.tagger.svg|' -i org.nickvision.tagger.desktop
