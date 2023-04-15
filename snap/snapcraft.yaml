@@ -17,6 +17,9 @@ parts:
     plugin: meson
     source: https://github.com/NickvisionApps/Tagger.git
     source-tag: $SNAPCRAFT_PROJECT_VERSION
+    build-packages:
+      - libjsoncpp-dev
+      - libcurlpp-dev
     stage-packages:
       - libjsoncpp25
       - libcurlpp0
