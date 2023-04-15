@@ -29,7 +29,7 @@ parts:
       - --prefix=/snap/tagger/current/usr
       - -Dbuildtype=release
     build-environment:
-      - CFLAGS: "-l/$CRAFT_PRIME/usr/include"
+      - CFLAGS: "$CFLAGS -I/$CRAFT_PRIME/usr/include"
     override-pull: |
       craftctl default
       sed -e 's|Icon=org.nickvision.tagger|Icon=$SNAP/usr/share/icons/hicolor/scalable/apps/org.nickvision.tagger.svg|' -i org.nickvision.tagger.desktop
