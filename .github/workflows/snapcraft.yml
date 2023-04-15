@@ -1,6 +1,8 @@
 name: 🧪 Test if Tagger snap can be built on x86_64
 
 on:
+  push:
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
